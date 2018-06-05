@@ -8,14 +8,16 @@ import org.testng.*;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 public class CalculatorClass {
-	    private static WindowsDriver CalculatorSession = null;
+	    private static WindowsDriver<WebElement> CalculatorSession = null;
 	    private static WebElement CalculatorResult = null;
-	@BeforeClass
+    @BeforeClass
     public static void setup() {
         try {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("app", "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App");
-            CalculatorSession = new WindowsDriver(new URL("http://127.0.0.1:4723"), capabilities);
+            capabilities.setCapability("deviceName", "WindowsApp");
+            capabilities.setCapability("plaform", "Windows");
+	    CalculatorSession = new WindowsDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
             CalculatorSession.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
             CalculatorResult = CalculatorSession.findElementByAccessibilityId("CalculatorResults");
